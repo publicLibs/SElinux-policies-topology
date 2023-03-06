@@ -1,0 +1,231 @@
+policy_module(kde, 1.0.0)
+
+# types:  kde_$1_t kde_$_exec_t
+
+type kde_plasmashell_runtime_t;
+type kde_ksmserver_t;
+type kde_ksmserver_exec_t;
+type kde_powerdevil_t;
+type kde_powerdevil_exec_t;
+type kde_activitymngrd_t;
+type kde_activitymngrd_exec_t;
+type kde_globalaccel5_t;
+type kde_globalaccel5_exec_t;
+type kde_XdgDesktopPortal_t;
+type kde_XdgDesktopPortal_exec_t;
+type kde_kded5_t;
+type kde_kded5_exec_t;
+type kde_kded5_runtime_t;
+type kde_ksplashqml_t;
+type kde_ksplashqml_exec_t;
+type kde_ApplyMouseTheme_t;
+type kde_ApplyMouseTheme_exec_t;
+type kde_wm_t;
+type kde_wm_exec_t;
+type kde_kwalletd_t;
+type kde_kwalletd_exec_t;
+type kde_kwalletd_init_t;
+type kde_kwalletd_init_exec_t;
+type kde_starterX_t;
+type kde_starterX_exec_t;
+
+
+
+createKDEuserService(powerdevil)
+createKDEuserService(activitymngrd)
+createKDEuserService(globalaccel5)
+createKDEuserService(XdgDesktopPortal)
+createKDEuserService(kded5)
+createKDEuserService(wm)
+createKDEuserService(kwalletd_init)
+createKDEuserApp(ksplashqml)
+createKDEuserApp(ApplyMouseTheme)
+
+#createKDEuserApp(kwalletd)
+#createKDEuserService(kwalletd)
+
+
+
+#proctitle=/bin/sh /usr/share/sddm/scripts/Xsession /usr/bin/startplasma-x11 
+createKDEuserApp(starterX)
+
+
+type kde_defaults_xdg_config_t;
+files_type(kde_defaults_xdg_config_t)
+
+
+type kde_globals_xdg_config_t;
+files_type(kde_globals_xdg_config_t)
+
+type kde_crashmeta_xdg_cache_t;
+files_type(kde_crashmeta_xdg_cache_t)
+
+
+
+#################################################################################################################### kwalletd
+domain_type(kde_kwalletd_t)
+domain_entry_file(kde_kwalletd_t, kde_kwalletd_exec_t)
+
+#	domtrans_pattern(user_t, kde_kwalletd_exec_t, kde_kwalletd_t)
+#xdm_t -> kde_kwalletd_exec_t -> kde_kwalletd_t
+
+optional_policy(`
+	gen_require(`
+		type user_t;
+		role user_r;
+		role system_r;
+	')
+	allow user_t kde_kwalletd_exec_t:file entrypoint;
+	domtrans_pattern(user_t, kde_kwalletd_exec_t, kde_kwalletd_t)
+	role user_r types kde_kwalletd_t;	
+	role system_r types kde_kwalletd_t;	
+')
+optional_policy(`
+	gen_require(`
+		type init_t;
+	')
+	allow init_t kde_kwalletd_exec_t:file entrypoint;
+	domtrans_pattern(init_t, kde_kwalletd_exec_t, kde_kwalletd_t)
+')
+
+optional_policy(`
+	gen_require(`
+		type xdm_t;
+		role user_r;
+		role system_r;
+	')
+	allow xdm_t kde_kwalletd_exec_t:file entrypoint;
+	domtrans_pattern(xdm_t, kde_kwalletd_exec_t, kde_kwalletd_t)	
+	role user_r types kde_kwalletd_t;	
+	role system_r types kde_kwalletd_t;	
+')
+#################################################################################################################### kwalletd
+
+
+kdeModuleCreateSocketURuntime(kded5)
+
+
+optional_policy(`
+	gen_require(`
+		type user_t;
+	')
+	domtrans_pattern(user_t, kde_starterX_exec_t, kde_starterX_t)	
+	#WTF
+')
+
+
+
+
+type kde_polkitAgent_t;
+type kde_polkitAgent_exec_t;
+createKDEuserService(polkitAgent)
+
+
+
+type kde_plasmashell_t;
+type kde_plasmashell_exec_t;
+type kde_kscreenlocker_t;
+type kde_kscreenlocker_exec_t;
+type kde_kaccess_t;
+type kde_kaccess_exec_t;
+type kde_gmenudbusmenuproxy_t;
+type kde_gmenudbusmenuproxy_exec_t;
+type kde_xembedsniproxy_t;
+type kde_xembedsniproxy_exec_t;
+
+createKDEuserService(plasmashell)
+createKDEuserService(xembedsniproxy)
+createKDEuserService(gmenudbusmenuproxy)
+createKDEuserApp(kscreenlocker)
+createKDEuserService(kaccess)
+
+
+
+
+
+#FIXME  run as user
+#corecmd_shell_domtrans(kde_plasmashell_t, user_t)
+#corecmd_bin_domtrans(kde_plasmashell_t, user_t)
+
+
+
+kdeModuleCreateSocketURuntime(plasmashell)
+
+
+
+
+createKDEuserService(ksmserver)
+
+#xorg
+files_search_tmp(kde_ksmserver_t)
+xserver_create_xdm_tmp_sockets(kde_ksmserver_t)
+
+#KSM
+domtrans_pattern(kde_ksmserver_t, kde_kscreenlocker_exec_t, kde_kscreenlocker_t)	
+
+
+##################################
+# Resource and network access abstraction
+# KIO
+#
+
+type kde_kioslave_t;
+type kde_kioslave_exec_t;
+type kde_kioslave_runtime_t;
+createKDEuserApp(kioslave)
+kdeModuleCreateSocketURuntime(kioslave)
+domtrans_pattern(kde_plasmashell_t, kde_kioslave_exec_t, kde_kioslave_t)
+
+
+
+
+
+# browser integration
+type kde_brwserIntegrHost_t;
+type kde_brwserIntegrHost_exec_t;
+createKDEuserApp(brwserIntegrHost)
+
+optional_policy(`
+	gen_require(`
+			type chromium_t;
+	')
+	domtrans_pattern(chromium_t, kde_brwserIntegrHost_exec_t, kde_brwserIntegrHost_t)	
+')
+
+kde_module_createHomeDFL(globalaccel5)
+kde_module_createHomeDFL(plasmashell)
+kde_module_createHomeDFL(activitymngrd)
+kde_module_createHomeDFL(kaccess)
+
+kde_module_can_read_localization(kwalletd_init)
+kde_module_can_read_localization(activitymngrd)
+kde_module_can_read_localization(globalaccel5)
+kde_module_can_read_localization(gmenudbusmenuproxy)
+kde_module_can_read_localization(kaccess)
+kde_module_can_read_localization(kioslave)
+kde_module_can_read_localization(ksmserver)
+kde_module_can_read_localization(plasmashell)
+kde_module_can_read_localization(polkitAgent)
+kde_module_can_read_localization(powerdevil)
+kde_module_can_read_localization(starterX)
+kde_module_can_read_localization(wm)
+kde_module_can_read_localization(XdgDesktopPortal)
+kde_module_can_read_localization(xembedsniproxy)
+
+kde_module_trans(starterX,ApplyMouseTheme)
+kde_module_trans(starterX,ksplashqml)
+
+
+
+#X-org
+
+kde_module_XserverDri(XdgDesktopPortal)
+kde_module_XserverDri(kaccess)
+kde_module_XserverDri(kded5)
+kde_module_XserverDri(kioslave)
+kde_module_XserverDri(kscreenlocker)
+kde_module_XserverDri(ksmserver)
+kde_module_XserverDri(ksplashqml)
+kde_module_XserverDri(plasmashell)
+kde_module_XserverDri(polkitAgent)
+kde_module_XserverDri(wm)
