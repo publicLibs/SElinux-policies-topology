@@ -22,8 +22,7 @@ type kde_ApplyMouseTheme_t;
 type kde_ApplyMouseTheme_exec_t;
 type kde_wm_t;
 type kde_wm_exec_t;
-type kde_kwalletd_t;
-type kde_kwalletd_exec_t;
+
 type kde_kwalletd_init_t;
 type kde_kwalletd_init_exec_t;
 type kde_starterX_t;
@@ -70,8 +69,18 @@ files_type(xorg_sddm_session_exe_t)
 
 
 #################################################################################################################### kwalletd
-domain_type(kde_kwalletd_t)
-domain_entry_file(kde_kwalletd_t, kde_kwalletd_exec_t)
+type kde_kwalletd_t;
+type kde_kwalletd_exec_t;
+
+init_daemon_domain(kde_kwalletd_t, kde_kwalletd_exec_t)
+
+
+
+type kde_kwalletd_unit_t;
+init_unit_file(kde_kwalletd_unit_t)
+
+#domain_type(kde_kwalletd_t)
+#domain_entry_file(kde_kwalletd_t, kde_kwalletd_exec_t)
 
 #	domtrans_pattern(user_t, kde_kwalletd_exec_t, kde_kwalletd_t)
 #xdm_t -> kde_kwalletd_exec_t -> kde_kwalletd_t
@@ -261,5 +270,3 @@ files_type(kde_kwalletd_exec_desktop_t)
 #/usr/lib/pam_kwallet_init
 #/usr/bin/kwallet-query
 #/usr/bin/kwalletd5
-#/usr/share/dbus-1/services/org.kde.kwalletd5.service
-#/usr/lib/systemd/user/plasma-kwallet-pam.service

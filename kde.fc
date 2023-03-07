@@ -82,4 +82,6 @@ HOME_DIR/\.config/kglobalshortcutsrc\.lock 								gen_context(system_u:object_r
 /usr/share/applications/org.kde.kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
 /usr/share/kservices5/kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
 
+/usr/share/dbus-1/services/org.kde.kwalletd5.service 								gen_context(system_u:object_r:kde_kwalletd_unit_t,s0)
+/usr/lib/systemd/user/plasma-kwallet-pam.service 								gen_context(system_u:object_r:kde_kwalletd_unit_t,s0)
 
