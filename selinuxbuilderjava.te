@@ -178,3 +178,31 @@ corecmd_exec_bin(selinux_builder_java_t)
 
 allow setfiles_t selinux_builder_java_t:fd use;
 allow setfiles_t selinux_builder_java_t:fifo_file { read write };
+
+
+
+
+
+
+
+
+
+
+
+require {
+        type semanage_t;
+        type selinux_builder_java_t;
+        type security_t;
+        class filesystem getattr;
+        class dir search;
+        class file { open read };
+        class process { noatsecure rlimitinh siginh };
+}
+
+#============= selinux_builder_java_t ==============
+allow selinux_builder_java_t security_t:dir search;
+allow selinux_builder_java_t security_t:file { open read };
+allow selinux_builder_java_t security_t:filesystem getattr;
+allow selinux_builder_java_t semanage_t:process { noatsecure rlimitinh siginh };
+seutil_libselinux_linked(selinux_builder_java_t)
+seutil_search_default_contexts(selinux_builder_java_t)
