@@ -12,6 +12,7 @@ optional_policy(`
 		role user_r;
 	')
 	role user_r types selinux_builder_java_t;
+	seutil_run_semanage(selinux_builder_java_t,user_r)
 ')
 
 
