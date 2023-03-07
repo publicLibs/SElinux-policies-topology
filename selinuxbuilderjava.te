@@ -1,0 +1,15 @@
+policy_module(selinuxbuilderjava, 1.0.0)
+
+type selinux_builder_java_t;
+domain_type(selinux_builder_java_t)
+
+
+
+
+optional_policy(`
+	gen_require(`
+		type user_t;
+		role user_r;
+	')
+	role user_r types selinux_builder_java_t;
+')
