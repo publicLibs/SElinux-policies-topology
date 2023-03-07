@@ -1,87 +1,49 @@
-/usr/bin/startplasma-x11					--	gen_context(system_u:object_r:kde_starterX_exec_t,s0)
-/usr/lib/polkit-kde-authentication-agent-1					--	gen_context(system_u:object_r:kde_polkitAgent_exec_t,s0)
-
-
-/usr/bin/ksmserver											--	gen_context(system_u:object_r:kde_ksmserver_exec_t,s0)
-/usr/lib/kactivitymanagerd									--	gen_context(system_u:object_r:kde_activitymngrd_exec_t,s0)
-/usr/lib/org_kde_powerdevil									--	gen_context(system_u:object_r:kde_powerdevil_exec_t,s0)
-/usr/bin/kglobalaccel5										--	gen_context(system_u:object_r:kde_globalaccel5_exec_t,s0)
-/usr/bin/kded5												--	gen_context(system_u:object_r:kde_kded5_exec_t,s0)
-/usr/lib/xdg-desktop-portal-kde								--	gen_context(system_u:object_r:kde_XdgDesktopPortal_exec_t,s0)
-/usr/bin/plasmashell										--	gen_context(system_u:object_r:kde_plasmashell_exec_t,s0)
-/usr/bin/ksplashqml											--	gen_context(system_u:object_r:kde_ksplashqml_exec_t,s0)
-/usr/lib/kscreenlocker_greet								--	gen_context(system_u:object_r:kde_kscreenlocker_exec_t,s0)
-/usr/lib/kf5/kioslave5										--	gen_context(system_u:object_r:kde_kioslave_exec_t,s0)
-/usr/bin/plasma-browser-integration-host					--	gen_context(system_u:object_r:kde_brwserIntegrHost_exec_t,s0)
-/usr/bin/xembedsniproxy										--	gen_context(system_u:object_r:kde_xembedsniproxy_exec_t,s0)
-/usr/bin/gmenudbusmenuproxy									--	gen_context(system_u:object_r:kde_gmenudbusmenuproxy_exec_t,s0)
-/usr/bin/kaccess											--	gen_context(system_u:object_r:kde_kaccess_exec_t,s0)
-
-/usr/lib/pam_kwallet_init									--	gen_context(system_u:object_r:kde_kwalletd_init_exec_t,s0)
-/usr/bin/kwalletd5											--	gen_context(system_u:object_r:kde_kwalletd_exec_t,s0)
-
-/usr/bin/kwin_((wayland)|(x11))								--	gen_context(system_u:object_r:kde_wm_exec_t,s0)
-
-/usr/bin/kapplymousetheme									--	gen_context(system_u:object_r:kde_ApplyMouseTheme_exec_t,s0)
+/usr/bin/kded5									--	gen_context(system_u:object_r:kde_kded5_exec_t,s0)
 
 
 
-/run/user/%{USERID}/plasmashell[^/]+\.kioworker\.socket 	-s	gen_context(system_u:object_r:kde_plasmashell_runtime_t,s0)
-/run/user/%{USERID}/kio_.*kioworker\.socket					-s	gen_context(system_u:object_r:kde_kioslave_runtime_t,s0)
-
-
-
-HOME_DIR/\.cache/plasma-svgelements\.lock					-s	gen_context(system_u:object_r:kde_plasmashell_home_cache_t,s0)
-
-HOME_DIR/\.config/kglobalshortcutsrc\.lock 					--	gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
-HOME_DIR/\.config/kde\.org(/.*)?								gen_context(system_u:object_r:kde_plasmashell_home_config_t,s0)
-HOME_DIR/\.local/share/kactivitymanagerd(/.*)?					gen_context(system_u:object_r:kde_activitymngrd_home_local_share_t,s0)
-
-
-HOME_DIR/\.config/kdedefaults(/.*)?								gen_context(system_u:object_r:kde_defaults_xdg_config_t,s0)
-HOME_DIR/\.config/kdeglobals 					--	gen_context(system_u:object_r:kde_globals_xdg_config_t,s0)
-
-
-
-
-HOME_DIR/\.cache/kcrash-metadata 								gen_context(system_u:object_r:kde_crashmeta_xdg_cache_t,s0)
-HOME_DIR/\.config/kactivitymanagerdrc 								gen_context(system_u:object_r:kde_activitymngrd_home_config_t,s0)
-HOME_DIR/\.config/kaccessrc 								gen_context(system_u:object_r:kde_kaccess_home_config_t,s0)
-
-
-HOME_DIR/\.config/kglobalshortcutsrc 								gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
-HOME_DIR/\.config/kglobalshortcutsrc\.lock 								gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
-
-
-
-
-
-/usr/share/sddm/scripts/Xsession 								gen_context(system_u:object_r:xorg_sddm_session_exe_t,s0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-/usr/lib/libKF5Wallet.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
-/usr/lib/libKF5Wallet.so.5 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
-/usr/lib/libKF5Wallet.so.5.103.0 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
-/usr/lib/libkwalletbackend5.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
-/usr/lib/libkwalletbackend5.so.5 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
-/usr/lib/libkwalletbackend5.so.5.103.0 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
-/usr/lib/security/pam_kwallet5.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
-
-/etc/xdg/autostart/pam_kwallet_init.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
-/usr/share/applications/org.kde.kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
-/usr/share/kservices5/kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
-
-/usr/share/dbus-1/services/org.kde.kwalletd5.service 								gen_context(system_u:object_r:kde_kwalletd_unit_t,s0)
-/usr/lib/systemd/user/plasma-kwallet-pam.service 								gen_context(system_u:object_r:kde_kwalletd_unit_t,s0)
-
+#/usr/bin/startplasma-x11					--	gen_context(system_u:object_r:kde_starterX_exec_t,s0)
+#/usr/lib/polkit-kde-authentication-agent-1					--	gen_context(system_u:object_r:kde_polkitAgent_exec_t,s0)
+#/usr/bin/ksmserver											--	gen_context(system_u:object_r:kde_ksmserver_exec_t,s0)
+#/usr/lib/org_kde_powerdevil									--	gen_context(system_u:object_r:kde_powerdevil_exec_t,s0)
+#/usr/bin/kglobalaccel5										--	gen_context(system_u:object_r:kde_globalaccel5_exec_t,s0)
+#/usr/bin/kded5												--	gen_context(system_u:object_r:kde_kded5_exec_t,s0)
+#/usr/lib/xdg-desktop-portal-kde								--	gen_context(system_u:object_r:kde_XdgDesktopPortal_exec_t,s0)
+#/usr/bin/plasmashell										--	gen_context(system_u:object_r:kde_plasmashell_exec_t,s0)
+#/usr/bin/ksplashqml											--	gen_context(system_u:object_r:kde_ksplashqml_exec_t,s0)
+#/usr/lib/kscreenlocker_greet								--	gen_context(system_u:object_r:kde_kscreenlocker_exec_t,s0)
+#/usr/lib/kf5/kioslave5										--	gen_context(system_u:object_r:kde_kioslave_exec_t,s0)
+#/usr/bin/plasma-browser-integration-host					--	gen_context(system_u:object_r:kde_brwserIntegrHost_exec_t,s0)
+#/usr/bin/xembedsniproxy										--	gen_context(system_u:object_r:kde_xembedsniproxy_exec_t,s0)
+#/usr/bin/gmenudbusmenuproxy									--	gen_context(system_u:object_r:kde_gmenudbusmenuproxy_exec_t,s0)
+#/usr/bin/kaccess											--	gen_context(system_u:object_r:kde_kaccess_exec_t,s0)
+#/usr/lib/pam_kwallet_init									--	gen_context(system_u:object_r:kde_kwalletd_init_exec_t,s0)
+#/usr/bin/kwin_((wayland)|(x11))								--	gen_context(system_u:object_r:kde_wm_exec_t,s0)
+#/usr/bin/kapplymousetheme									--	gen_context(system_u:object_r:kde_ApplyMouseTheme_exec_t,s0)
+#/run/user/%{USERID}/plasmashell[^/]+\.kioworker\.socket 	-s	gen_context(system_u:object_r:kde_plasmashell_runtime_t,s0)
+#/run/user/%{USERID}/kio_.*kioworker\.socket					-s	gen_context(system_u:object_r:kde_kioslave_runtime_t,s0)
+#HOME_DIR/\.cache/plasma-svgelements\.lock					-s	gen_context(system_u:object_r:kde_plasmashell_home_cache_t,s0)
+#HOME_DIR/\.config/kglobalshortcutsrc\.lock 					--	gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
+#HOME_DIR/\.config/kde\.org(/.*)?								gen_context(system_u:object_r:kde_plasmashell_home_config_t,s0)
+#HOME_DIR/\.local/share/kactivitymanagerd(/.*)?					gen_context(system_u:object_r:kde_activitymngrd_home_local_share_t,s0)
+#HOME_DIR/\.config/kdedefaults(/.*)?								gen_context(system_u:object_r:kde_defaults_xdg_config_t,s0)
+#HOME_DIR/\.config/kdeglobals 					--	gen_context(system_u:object_r:kde_globals_xdg_config_t,s0)
+#HOME_DIR/\.cache/kcrash-metadata 								gen_context(system_u:object_r:kde_crashmeta_xdg_cache_t,s0)
+#HOME_DIR/\.config/kactivitymanagerdrc 								gen_context(system_u:object_r:kde_activitymngrd_home_config_t,s0)
+#HOME_DIR/\.config/kaccessrc 								gen_context(system_u:object_r:kde_kaccess_home_config_t,s0)
+#HOME_DIR/\.config/kglobalshortcutsrc 								gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
+#HOME_DIR/\.config/kglobalshortcutsrc\.lock 								gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
+#/usr/share/sddm/scripts/Xsession 								gen_context(system_u:object_r:xorg_sddm_session_exe_t,s0)
+#/usr/lib/libKF5Wallet.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+#/usr/lib/libKF5Wallet.so.5 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+#/usr/lib/libKF5Wallet.so.5.103.0 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+#/usr/lib/libkwalletbackend5.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+#/usr/lib/libkwalletbackend5.so.5 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+#/usr/lib/libkwalletbackend5.so.5.103.0 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+#/usr/lib/security/pam_kwallet5.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+#/etc/xdg/autostart/pam_kwallet_init.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
+#/usr/share/applications/org.kde.kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
+#/usr/share/kservices5/kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
+#/usr/share/dbus-1/services/org.kde.kwalletd5.service 								gen_context(system_u:object_r:kde_kwalletd_unit_t,s0)
+#/usr/lib/systemd/user/plasma-kwallet-pam.service 								gen_context(system_u:object_r:kde_kwalletd_unit_t,s0)
+#/usr/bin/kwalletd5											--	gen_context(system_u:object_r:kde_kwalletd_exec_t,s0)
