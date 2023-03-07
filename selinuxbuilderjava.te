@@ -13,3 +13,35 @@ optional_policy(`
 	')
 	role user_r types selinux_builder_java_t;
 ')
+
+
+
+optional_policy(`
+	gen_require(`
+		type init_t;
+	')
+	allow init_t selinux_builder_java_t:process transition;
+')
+
+require {
+        type selinux_builder_java_t;
+        type bin_t;
+        type user_tmp_t;
+        type init_t;
+        type sysfs_t;
+        type tmp_t;
+        type proc_t;
+        type user_home_dir_t;
+        class dir { getattr remove_name search };
+        class file { getattr open read unlink };
+        class fd use;
+        class process transition;
+}
+allow selinux_builder_java_t bin_t:dir { getattr search };
+allow selinux_builder_java_t init_t:fd use;
+allow selinux_builder_java_t proc_t:file { getattr open read };
+allow selinux_builder_java_t sysfs_t:file { open read };
+allow selinux_builder_java_t tmp_t:dir search;
+allow selinux_builder_java_t user_home_dir_t:dir search;
+allow selinux_builder_java_t user_tmp_t:dir remove_name;
+allow selinux_builder_java_t user_tmp_t:file unlink;
