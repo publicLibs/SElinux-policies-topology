@@ -45,3 +45,117 @@ allow selinux_builder_java_t tmp_t:dir search;
 allow selinux_builder_java_t user_home_dir_t:dir search;
 allow selinux_builder_java_t user_tmp_t:dir remove_name;
 allow selinux_builder_java_t user_tmp_t:file unlink;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+require {
+        type usr_t;
+        type proc_t;
+        type etc_t;
+        type init_t;
+        type semanage_read_lock_t;
+        type load_policy_exec_t;
+        type selinux_builder_java_t;
+        type locale_t;
+        type setfiles_exec_t;
+        type file_context_t;
+        type shell_exec_t;
+        type java_exec_t;
+        type sysctl_t;
+        type user_tmp_t;
+        type systemd_userdbd_runtime_t;
+        type nscd_runtime_t;
+        type sysctl_kernel_t;
+        type lib_t;
+        type bin_t;
+        type init_runtime_t;
+        type cgroup_t;
+        type var_lib_t;
+        type semanage_store_t;
+        type policy_config_t;
+        type home_root_t;
+        type user_home_t;
+        type semanage_exec_t;
+        type security_t;
+        type default_context_t;
+        type selinux_config_t;
+        class dir { add_name create getattr open read remove_name rename rmdir search watch write };
+        class sock_file write;
+        class unix_stream_socket { connectto ioctl read write };
+        class file { create entrypoint execute execute_no_trans getattr lock map open read rename setattr unlink write };
+        class lnk_file read;
+        class security load_policy;
+        class fifo_file { append getattr ioctl read write };
+        class capability dac_read_search;
+        class process { execmem getsched };
+        class filesystem getattr;
+}
+
+#============= selinux_builder_java_t ==============
+allow selinux_builder_java_t bin_t:file { execute execute_no_trans getattr map open read };
+allow selinux_builder_java_t bin_t:lnk_file read;
+allow selinux_builder_java_t cgroup_t:dir search;
+allow selinux_builder_java_t cgroup_t:file { getattr open read };
+allow selinux_builder_java_t default_context_t:dir { getattr search };
+allow selinux_builder_java_t etc_t:file { getattr open read };
+allow selinux_builder_java_t file_context_t:dir { add_name getattr remove_name search write };
+allow selinux_builder_java_t file_context_t:file { create open rename unlink write };
+allow selinux_builder_java_t home_root_t:dir search;
+allow selinux_builder_java_t init_runtime_t:dir search;
+allow selinux_builder_java_t init_t:unix_stream_socket { connectto ioctl read write };
+allowxperm selinux_builder_java_t init_t:unix_stream_socket ioctl 0x5401;
+allow selinux_builder_java_t java_exec_t:file { entrypoint execute map read };
+allow selinux_builder_java_t lib_t:file execute_no_trans;
+allow selinux_builder_java_t load_policy_exec_t:file { execute execute_no_trans map open read };
+allow selinux_builder_java_t locale_t:dir { getattr open read search };
+allow selinux_builder_java_t locale_t:file { getattr map open read };
+allow selinux_builder_java_t nscd_runtime_t:dir search;
+allow selinux_builder_java_t policy_config_t:dir { add_name getattr remove_name search write };
+allow selinux_builder_java_t policy_config_t:file { create getattr map open read rename unlink write };
+allow selinux_builder_java_t proc_t:filesystem getattr;
+allow selinux_builder_java_t security_t:file write;
+allow selinux_builder_java_t security_t:security load_policy;
+allow selinux_builder_java_t self:capability dac_read_search;
+allow selinux_builder_java_t self:fifo_file { append getattr ioctl read write };
+allowxperm selinux_builder_java_t self:fifo_file ioctl 0x5401;
+allow selinux_builder_java_t self:process { execmem getsched };
+allow selinux_builder_java_t selinux_config_t:dir { add_name remove_name write };
+allow selinux_builder_java_t selinux_config_t:file { create rename unlink write };
+allow selinux_builder_java_t selinux_config_t:lnk_file read;
+allow selinux_builder_java_t semanage_exec_t:file { execute execute_no_trans map open read };
+allow selinux_builder_java_t semanage_read_lock_t:file { getattr lock open read };
+allow selinux_builder_java_t semanage_store_t:dir { add_name create getattr open read remove_name rename rmdir search write };
+allow selinux_builder_java_t semanage_store_t:file { create getattr lock open read rename setattr unlink write };
+allow selinux_builder_java_t setfiles_exec_t:file { execute execute_no_trans map open read };
+allow selinux_builder_java_t shell_exec_t:file { execute execute_no_trans getattr map open read };
+allow selinux_builder_java_t sysctl_kernel_t:dir search;
+allow selinux_builder_java_t sysctl_kernel_t:file { open read };
+allow selinux_builder_java_t sysctl_t:dir search;
+allow selinux_builder_java_t systemd_userdbd_runtime_t:dir { getattr open read search };
+allow selinux_builder_java_t systemd_userdbd_runtime_t:sock_file write;
+allow selinux_builder_java_t user_home_t:dir { getattr open read search watch };
+allow selinux_builder_java_t user_home_t:file { getattr map open read };
+allow selinux_builder_java_t user_tmp_t:dir { add_name getattr open read search write };
+allow selinux_builder_java_t user_tmp_t:file { create getattr map open read write };
+allow selinux_builder_java_t usr_t:dir read;
+allow selinux_builder_java_t usr_t:file { getattr open read };
+allow selinux_builder_java_t var_lib_t:dir { getattr search };
