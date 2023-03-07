@@ -51,3 +51,9 @@ HOME_DIR/\.config/kaccessrc 								gen_context(system_u:object_r:kde_kaccess_ho
 
 HOME_DIR/\.config/kglobalshortcutsrc 								gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
 HOME_DIR/\.config/kglobalshortcutsrc\.lock 								gen_context(system_u:object_r:kde_globalaccel5_home_config_t,s0)
+
+
+
+
+
+/usr/share/sddm/scripts/Xsession 								gen_context(system_u:object_r:xorg_sddm_session_exe_t,s0)
