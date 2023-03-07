@@ -57,3 +57,29 @@ HOME_DIR/\.config/kglobalshortcutsrc\.lock 								gen_context(system_u:object_r
 
 
 /usr/share/sddm/scripts/Xsession 								gen_context(system_u:object_r:xorg_sddm_session_exe_t,s0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+/usr/lib/libKF5Wallet.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+/usr/lib/libKF5Wallet.so.5 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+/usr/lib/libKF5Wallet.so.5.103.0 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+/usr/lib/libkwalletbackend5.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+/usr/lib/libkwalletbackend5.so.5 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+/usr/lib/libkwalletbackend5.so.5.103.0 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+/usr/lib/security/pam_kwallet5.so 								gen_context(system_u:object_r:kde_kwalletd_libs_t,s0)
+
+/etc/xdg/autostart/pam_kwallet_init.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
+/usr/share/applications/org.kde.kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
+/usr/share/kservices5/kwalletd5.desktop 								gen_context(system_u:object_r:kde_kwalletd_exec_desktop_t,s0)
+
+

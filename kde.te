@@ -236,3 +236,30 @@ kde_module_XserverDri(ksplashqml)
 kde_module_XserverDri(plasmashell)
 kde_module_XserverDri(polkitAgent)
 kde_module_XserverDri(wm)
+
+
+
+require {
+        type xorg_sddm_session_exe_t;
+        type user_t;
+        class file entrypoint;
+}
+
+allow user_t xorg_sddm_session_exe_t:file entrypoint;
+allow user_t xorg_sddm_session_exe_t:file read;
+allow user_t xorg_sddm_session_exe_t:file { ioctl open };
+
+
+type kde_kwalletd_libs_t;
+files_type(kde_kwalletd_libs_t)
+
+type kde_kwalletd_exec_desktop_t;
+files_type(kde_kwalletd_exec_desktop_t)
+
+
+
+#/usr/lib/pam_kwallet_init
+#/usr/bin/kwallet-query
+#/usr/bin/kwalletd5
+#/usr/share/dbus-1/services/org.kde.kwalletd5.service
+#/usr/lib/systemd/user/plasma-kwallet-pam.service
