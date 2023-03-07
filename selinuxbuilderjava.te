@@ -16,6 +16,8 @@ optional_policy(`
 ')
 
 
+corecmd_exec_shell(selinux_builder_java_t)
+libs_exec_lib_files(selinux_builder_java_t)
 
 optional_policy(`
 	gen_require(`
